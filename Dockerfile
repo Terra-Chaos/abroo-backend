@@ -1,20 +1,21 @@
-# Use the official Python image
 FROM python:3.9-slim
 
-# Set the working directory in the container
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set work directory
 WORKDIR /code
 
-# Copy the requirements file into the container
+# Install dependencies
 COPY requirements.txt /code/
-
-# Install the dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the current directory contents into the container at /code
+# Copy project
 COPY . /code/
 
-# Expose the port the app runs on
+# Expose the port
 EXPOSE 8000
 
-# Define the command to run the app
+# Run the application
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
